@@ -11,8 +11,15 @@ Or in Python:
     results = evaluate_jsonl("responses.jsonl", "config.yaml")
 """
 
+from .models.result import EvaluationResult
+from .geometry.grid_impl import build_grid_space_from_cell_ids
+from .grid import make_grid, build_shell_from_cell_ids, AllocationItem
+from .export import save_json, save_csv, save_summary_csv, load_json
+from .constraints import configure_constraint_logging
+from .config.schema import INSTANCE_ID_PATTERN
 import json
 import logging
+import re
 import sys
 import time
 from pathlib import Path
@@ -21,13 +28,38 @@ from typing import Any
 from tqdm import tqdm
 
 from . import Evaluator, EvaluationResult
+from .output import LogFormatter
 
 logger = logging.getLogger(__name__)
-from .constraints import configure_constraint_logging
-from .export import save_json, save_csv, save_summary_csv, load_json
 
-from .grid import make_grid, build_shell_from_cell_ids, AllocationItem
-from .models.result import EvaluationResult
+
+def _normalize_space_id(space_id: str, space_type: str, type_counters: dict[str, int]) -> str:
+    """Normalize a space_id to instance ID format (e.g., bedroom_1).
+
+    If the space_id already matches the instance ID pattern, returns it unchanged.
+    Otherwise, assigns an instance number based on the space_type.
+
+    Args:
+        space_id: The original space_id from LLM output
+        space_type: The type of the space (e.g., "bedroom", "bathroom")
+        type_counters: Dict tracking instance counts per type (mutated)
+
+    Returns:
+        Normalized instance ID (e.g., "bedroom_1")
+    """
+    # Check if already in instance format
+    if INSTANCE_ID_PATTERN.match(space_id):
+        return space_id
+
+    # Normalize the type (lowercase, replace spaces with underscores)
+    normalized_type = space_type.lower().replace(" ", "_").replace("-", "_")
+
+    # Increment counter for this type
+    if normalized_type not in type_counters:
+        type_counters[normalized_type] = 0
+    type_counters[normalized_type] += 1
+
+    return f"{normalized_type}_{type_counters[normalized_type]}"
 
 
 def _get_topology_module():
@@ -115,7 +147,8 @@ def _finalize_csv_reports(output_dir: Path) -> None:
                     timestamp=data.get("timestamp", ""),
                     model_name=data.get("model_name"),
                     constraints_total=data.get("summary", {}).get("total", 0),
-                    constraints_passed=data.get("summary", {}).get("passed", 0),
+                    constraints_passed=data.get(
+                        "summary", {}).get("passed", 0),
                     results=[
                         ConstraintResult(
                             constraint_id=r["constraint_id"],
@@ -136,7 +169,8 @@ def _finalize_csv_reports(output_dir: Path) -> None:
             # Save aggregated CSVs
             save_csv(results, model_path / "all_constraints.csv")
             save_summary_csv(results, model_path / "summary.csv")
-            logger.debug(f"Generated CSV reports for {model_path.name} ({len(results)} results)")
+            logger.debug(
+                f"Generated CSV reports for {model_path.name} ({len(results)} results)")
 
 
 def load_jsonl(path: str) -> list[dict]:
@@ -156,6 +190,7 @@ def extract_topology(
     grid_cols: int,
     cell_size: float = 1.0,
     grid_shell: Any = None,
+    geometry_engine: str = "topologic",
 ) -> tuple[dict[str, Any], Any, list[dict[str, str | None]], dict[str, str]]:
     """Extract space_shells, grid_shell, doors, and space_types from response data.
 
@@ -163,18 +198,28 @@ def extract_topology(
     - Dict format: {"space_id": {"name": ..., "type": ..., "cell_ids": [...]}}
     - Array format: [{"space_id": ..., "name": ..., "type": ..., "cell_ids": [...]}]
 
+    Space IDs are normalized to instance format (e.g., "bedroom_1") if they don't
+    already match that pattern. This handles LLM outputs that use bare types
+    (e.g., "bedroom") instead of instance IDs.
+
     Args:
         response_data: Parsed JSON response with 'allocation' and 'doors'
         grid_rows: Number of grid rows
         grid_cols: Number of grid columns
         cell_size: Size of each cell
         grid_shell: Optional pre-built grid shell for caching (avoids expensive rebuild)
+                   Only used when geometry_engine is "topologic"
+        geometry_engine: Geometry engine type - "topologic" or "grid"
+                        Determines the type of shell objects created
 
     Returns:
         Tuple of (space_shells, grid_shell, doors, space_types)
+        All space IDs in the returned dicts are normalized to instance format.
     """
-    # Use provided grid shell or create a new one
-    if grid_shell is None:
+    use_grid_engine = geometry_engine == "grid"
+
+    # Use provided grid shell or create a new one (only needed for topologic engine)
+    if not use_grid_engine and grid_shell is None:
         grid_shell = make_grid(grid_rows, grid_cols, cell_size)
 
     # Extract allocation (supports both dict and array formats)
@@ -182,57 +227,75 @@ def extract_topology(
     allocation = response.get("allocation", {})
 
     space_shells = {}
-    space_types = {}  # Maps space_id to type
+    space_types = {}  # Maps normalized space_id to type
+    id_mapping = {}   # Maps original space_id to normalized instance_id
+    type_counters: dict[str, int] = {}  # Tracks instance counts per type
+
+    # Helper function to build the appropriate shell type
+    def build_shell(cell_ids: list[str], name: str, space_type: str):
+        if use_grid_engine:
+            # Build GridSpace for pure-Python grid engine
+            return build_grid_space_from_cell_ids(cell_ids, grid_rows, grid_cols)
+        else:
+            # Build topologicpy Shell for topologic engine
+            alloc_item = AllocationItem(
+                name=name,
+                type=space_type,
+                cell_ids=cell_ids,
+            )
+            return build_shell_from_cell_ids(alloc_item, grid_shell)
 
     # Detect format: array vs dict
     if isinstance(allocation, list):
         # Array-based format (sanitized)
         for space_data in allocation:
-            space_id = space_data.get("space_id")
-            if not space_id:
+            original_id = space_data.get("space_id")
+            if not original_id:
                 continue
-            name = space_data.get("name", space_id)
+            name = space_data.get("name", original_id)
             space_type = space_data.get("type", "unknown")
             cell_ids = space_data.get("cell_ids", [])
 
+            # Normalize space_id to instance format
+            instance_id = _normalize_space_id(original_id, space_type, type_counters)
+            id_mapping[original_id] = instance_id
+
             if cell_ids:
-                alloc_item = AllocationItem(
-                    name=name,
-                    type=space_type,
-                    cell_ids=cell_ids,
-                )
-                shell = build_shell_from_cell_ids(alloc_item, grid_shell)
+                shell = build_shell(cell_ids, name, space_type)
                 if shell:
-                    space_shells[space_id] = shell
-                    space_types[space_id] = space_type
+                    space_shells[instance_id] = shell
+                    space_types[instance_id] = space_type
     else:
         # Dict-based format (original LLM output)
-        for space_id, space_data in allocation.items():
-            name = space_data.get("name", space_id)
+        for original_id, space_data in allocation.items():
+            name = space_data.get("name", original_id)
             space_type = space_data.get("type", "unknown")
             cell_ids = space_data.get("cell_ids", [])
 
+            # Normalize space_id to instance format
+            instance_id = _normalize_space_id(original_id, space_type, type_counters)
+            id_mapping[original_id] = instance_id
+
             if cell_ids:
-                alloc_item = AllocationItem(
-                    name=name,
-                    type=space_type,
-                    cell_ids=cell_ids,
-                )
-                shell = build_shell_from_cell_ids(alloc_item, grid_shell)
+                shell = build_shell(cell_ids, name, space_type)
                 if shell:
-                    space_shells[space_id] = shell
-                    space_types[space_id] = space_type
+                    space_shells[instance_id] = shell
+                    space_types[instance_id] = space_type
 
     # Extract doors as dicts with space IDs and cell IDs
+    # Map original space IDs to normalized instance IDs
     doors_data = response.get("doors", [])
     doors = []
     for door in doors_data:
         source = door.get("source_space_id")
         target = door.get("target_space_id")
         if source and target:
+            # Map to normalized IDs (fall back to original if not in mapping)
+            normalized_source = id_mapping.get(source, source)
+            normalized_target = id_mapping.get(target, target)
             doors.append({
-                "source_space_id": source,
-                "target_space_id": target,
+                "source_space_id": normalized_source,
+                "target_space_id": normalized_target,
                 "source_cell_id": door.get("source_cell_id"),
                 "target_cell_id": door.get("target_cell_id"),
             })
@@ -245,6 +308,7 @@ def evaluate_single(
     evaluator: Evaluator,
     grid_rows: int,
     grid_cols: int,
+    geometry_engine: str = "topologic",
 ) -> EvaluationResult:
     """Evaluate a single floor plan response.
 
@@ -253,6 +317,7 @@ def evaluate_single(
         evaluator: Initialized Evaluator
         grid_rows: Number of grid rows
         grid_cols: Number of grid columns
+        geometry_engine: Geometry engine type - "topologic" or "grid"
 
     Returns:
         EvaluationResult
@@ -263,7 +328,7 @@ def evaluate_single(
 
     # Extract topology
     space_shells, grid_shell, doors, space_types = extract_topology(
-        response_data, grid_rows, grid_cols
+        response_data, grid_rows, grid_cols, geometry_engine=geometry_engine
     )
 
     # Evaluate
@@ -285,6 +350,7 @@ def evaluate_jsonl(
     on_evaluated: callable = None,
     output_dir: str | None = None,
     floorplan_ids: list[str] | None = None,
+    formatter: LogFormatter | None = None,
 ) -> list[EvaluationResult]:
     """Evaluate all floor plans in a JSONL file.
 
@@ -300,6 +366,7 @@ def evaluate_jsonl(
                     and already-evaluated floor plans are skipped (resume support).
         floorplan_ids: Optional list of floorplan IDs to evaluate. If provided,
                        only these floorplans will be evaluated.
+        formatter: Optional LogFormatter for rich tree output of results.
 
     Returns:
         List of EvaluationResult objects (only newly evaluated ones)
@@ -312,19 +379,25 @@ def evaluate_jsonl(
         floorplan_id_set = set(floorplan_ids)
         original_count = len(responses)
         responses = [r for r in responses if r.get("id") in floorplan_id_set]
-        logger.info(f"Filtered to {len(responses)}/{original_count} floorplans matching IDs: {floorplan_ids}")
+        logger.info(
+            f"Filtered to {len(responses)}/{original_count} floorplans matching IDs: {floorplan_ids}")
 
     # Initialize evaluator
     evaluator = Evaluator(config_path)
+
+    # Get geometry engine from config
+    geometry_engine = evaluator.config.geometry_engine
+    use_grid_engine = geometry_engine == "grid"
 
     # Load already-evaluated IDs for resume capability
     evaluated_ids: set[str] = set()
     if output_dir:
         evaluated_ids = _load_evaluated_ids(Path(output_dir))
         if evaluated_ids:
-            logger.info(f"Resuming: found {len(evaluated_ids)} already-evaluated floor plans")
+            logger.info(
+                f"Resuming: found {len(evaluated_ids)} already-evaluated floor plans")
 
-    # Cache grids by dimensions to avoid expensive rebuilds
+    # Cache grids by dimensions to avoid expensive rebuilds (only for topologic engine)
     # Key: (rows, cols), Value: grid_shell
     grid_cache: dict[tuple[int, int], Any] = {}
 
@@ -355,20 +428,23 @@ def evaluate_jsonl(
         rows = grid_info.get("row_count", grid_rows)
         cols = grid_info.get("col_count", grid_cols)
 
-        # Get or create cached grid for these dimensions
-        cache_key = (rows, cols)
-        if cache_key not in grid_cache:
-            logger.debug(f"Creating new grid for dimensions {rows}x{cols}")
-            grid_cache[cache_key] = make_grid(rows, cols, 1.0)
-        # Copy the cached grid to avoid mutation issues
-        # (Shell.ByFaces can mutate the original topology)
-        # deep=True is required to preserve dictionary metadata on faces
-        Topology = _get_topology_module()
-        cached_grid = Topology.Copy(grid_cache[cache_key], deep=True)
+        # Get cached grid for topologic engine (not needed for grid engine)
+        cached_grid = None
+        if not use_grid_engine:
+            cache_key = (rows, cols)
+            if cache_key not in grid_cache:
+                logger.debug(f"Creating new grid for dimensions {rows}x{cols}")
+                grid_cache[cache_key] = make_grid(rows, cols, 1.0)
+            # Copy the cached grid to avoid mutation issues
+            # (Shell.ByFaces can mutate the original topology)
+            # deep=True is required to preserve dictionary metadata on faces
+            Topology = _get_topology_module()
+            cached_grid = Topology.Copy(grid_cache[cache_key], deep=True)
 
-        # Extract topology using cached grid
+        # Extract topology using appropriate builder for geometry engine
         space_shells, grid_shell, doors, space_types = extract_topology(
-            response_data, rows, cols, grid_shell=cached_grid
+            response_data, rows, cols, grid_shell=cached_grid,
+            geometry_engine=geometry_engine
         )
 
         # Get floor plan ID and model name
@@ -385,6 +461,12 @@ def evaluate_jsonl(
             space_types=space_types,
         )
         results.append(result)
+
+        # Display formatted results (temporarily pause progress bar)
+        if formatter:
+            pbar.clear()
+            formatter.display_floor_plan_results(result)
+            pbar.refresh()
 
         # Save result immediately (incremental persistence)
         if output_dir:
@@ -442,7 +524,11 @@ def evaluate_jsonl_stream(
     # Initialize evaluator
     evaluator = Evaluator(config_path)
 
-    # Cache grids by dimensions
+    # Get geometry engine from config
+    geometry_engine = evaluator.config.geometry_engine
+    use_grid_engine = geometry_engine == "grid"
+
+    # Cache grids by dimensions (only for topologic engine)
     grid_cache: dict[tuple[int, int], Any] = {}
 
     for response_data in responses:
@@ -454,16 +540,19 @@ def evaluate_jsonl_stream(
         rows = grid_info.get("row_count", grid_rows)
         cols = grid_info.get("col_count", grid_cols)
 
-        # Get or create cached grid
-        cache_key = (rows, cols)
-        if cache_key not in grid_cache:
-            grid_cache[cache_key] = make_grid(rows, cols, 1.0)
-        Topology = _get_topology_module()
-        cached_grid = Topology.Copy(grid_cache[cache_key], deep=True)
+        # Get cached grid for topologic engine (not needed for grid engine)
+        cached_grid = None
+        if not use_grid_engine:
+            cache_key = (rows, cols)
+            if cache_key not in grid_cache:
+                grid_cache[cache_key] = make_grid(rows, cols, 1.0)
+            Topology = _get_topology_module()
+            cached_grid = Topology.Copy(grid_cache[cache_key], deep=True)
 
-        # Extract topology
+        # Extract topology using appropriate builder for geometry engine
         space_shells, grid_shell, doors, space_types = extract_topology(
-            response_data, rows, cols, grid_shell=cached_grid
+            response_data, rows, cols, grid_shell=cached_grid,
+            geometry_engine=geometry_engine
         )
 
         # Emit response_started event
@@ -544,8 +633,8 @@ def main():
     )
     parser.add_argument(
         "-o", "--output",
-        default="eval_results_v2",
-        help="Output directory (default: eval_results_v2)"
+        default="data/eval_results",
+        help="Output directory (default: data/eval_results)"
     )
     parser.add_argument(
         "-v", "--verbose",
@@ -604,10 +693,13 @@ def main():
         evaluate_jsonl_stream(
             jsonl_path,
             config_path,
-            output_dir=output_dir if output_dir != "eval_results_v2" else None,
+            output_dir=output_dir if output_dir != "data/eval_results" else None,
             floorplan_ids=args.floorplan_ids,
         )
         return
+
+    # Create formatter for rich tree output
+    formatter = LogFormatter(quiet=args.quiet)
 
     # Set up visualization callback if requested
     viz_callback = None
@@ -639,6 +731,7 @@ def main():
         on_evaluated=viz_callback,
         output_dir=str(output_base),
         floorplan_ids=args.floorplan_ids,
+        formatter=formatter,
     )
 
     # Generate CSV reports from all saved JSON files (including from previous runs)
@@ -672,7 +765,8 @@ def main():
         )
     logger.info(f"Results saved to:      {output_base}")
     for model_dir in sorted(results_by_model.keys()):
-        logger.info(f"  - {model_dir}/ ({results_by_model[model_dir]} layouts)")
+        logger.info(
+            f"  - {model_dir}/ ({results_by_model[model_dir]} layouts)")
     logger.info("=" * 40)
 
 
