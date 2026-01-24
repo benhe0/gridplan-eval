@@ -1,0 +1,44 @@
+# Example configuration for constraint_eval_v2
+# Declarative YAML format for floor plan constraint evaluation
+
+grid:
+  width: 20
+  height: 15
+
+spaces:
+  bedroom:
+    count: 2
+    min_area: 10
+    max_area: 25
+    contiguous: true
+    facade_access: required
+
+  bathroom:
+    count: 1
+    min_area: 4
+    max_area: 10
+    contiguous: true
+
+  kitchen:
+    count: 1
+    min_area: 8
+    contiguous: true
+
+  living_room:
+    count: 1
+    min_area: 15
+    facade_access: required
+    shape: rectangular
+
+  circulation:
+    count: 1
+    min_area: 10
+    min_width: 2
+    contiguous: true
+
+connectivity:
+  - bedroom adjacent_to bathroom
+  - bedroom door_to circulation
+  - kitchen door_to living_room
+  - bathroom door_to circulation
+  - bedroom avoid kitchen

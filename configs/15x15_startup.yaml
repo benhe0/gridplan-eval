@@ -1,0 +1,78 @@
+# 15x15 Startup Floor Plan - constraint_eval_v2 format
+# Converted from: 15x15_startup_newdoors_v3
+
+grid:
+  width: 15
+  height: 15
+
+spaces:
+  open_work_area:
+    count: 1
+    contiguous: true
+
+  meeting:
+    count: 2
+    contiguous: true
+
+  phone_booth:
+    count: 3
+    contiguous: true
+
+  kitchen:
+    count: 1
+    contiguous: true
+
+  lounge:
+    count: 1
+    contiguous: true
+
+  bathroom_women:
+    count: 1
+    contiguous: true
+
+  bathroom_men:
+    count: 1
+    contiguous: true
+
+  storage:
+    count: 1
+    contiguous: true
+
+  reception:
+    count: 1
+    contiguous: true
+
+  circulation:
+    count: 1
+    min_width: 2
+    facade_access: required
+    contiguous: false
+
+connectivity:
+  # Reception
+  - reception door_to circulation
+
+  # Open Work Area
+  - open_work_area door_to circulation
+  - open_work_area adjacent_to meeting
+  - open_work_area avoid bathroom_men
+  - open_work_area avoid bathroom_women
+
+  # Meeting Room
+  - meeting door_to circulation
+
+  # Phone Booth
+  - phone_booth door_to circulation
+
+  # Kitchen & Lounge
+  - kitchen door_to lounge
+  - kitchen door_to circulation
+  - lounge door_to circulation
+
+  # Bathrooms
+  - bathroom_men adjacent_to bathroom_women
+  - bathroom_men door_to circulation
+  - bathroom_women door_to circulation
+
+  # Storage
+  - storage door_to circulation
