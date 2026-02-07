@@ -1,0 +1,12 @@
+floor_plan_id,model_name,config_file,timestamp,constraints_passed,constraints_total,constraints_failed,constraints_skipped,execution_time_ms
+0f9baa0b-79bf-4e42-a21f-4310fa1e46d7,tngtech/deepseek-r1t2-chimera:free,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:41.901465,29,49,20,0,0.49805641174316406
+212f5ec3-ced9-46ed-b558-d561ca2d3221,tngtech/deepseek-r1t2-chimera:free,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:41.931402,44,49,5,0,0.4630088806152344
+225584c8-1c7d-49d1-acea-03fa079e70d1,tngtech/deepseek-r1t2-chimera:free,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:41.935323,32,49,17,0,0.4451274871826172
+270e5aa3-7c20-457d-89ac-004ffbd2aad2,tngtech/deepseek-r1t2-chimera:free,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:41.947626,44,49,5,0,0.3788471221923828
+47570c91-38a4-48a6-9664-adf3804f5057,tngtech/deepseek-r1t2-chimera:free,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.024441,43,49,6,0,0.6210803985595703
+513e61fc-7f54-4df5-b439-a2a05ce8c263,tngtech/deepseek-r1t2-chimera:free,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.063723,45,49,4,0,0.3478527069091797
+6d54b66b-0c90-4d99-a53e-6b0b1dbc81fa,tngtech/deepseek-r1t2-chimera:free,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.140305,37,49,12,0,0.3046989440917969
+8e9537bc-17aa-499e-a348-18cc440cb509,tngtech/deepseek-r1t2-chimera:free,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.241107,37,49,12,0,0.38504600524902344
+c44fa76a-1bbf-4a0b-bccd-7bfbaa6b10a4,tngtech/deepseek-r1t2-chimera:free,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.389598,31,49,18,0,0.4558563232421875
+c51c1a08-7cc4-4aa9-98ea-c9db7dac9d9a,tngtech/deepseek-r1t2-chimera:free,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.393112,38,49,11,0,0.3719329833984375
+fdabb581-e6cd-4f6a-beeb-207110bcc35d,tngtech/deepseek-r1t2-chimera:free,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.503362,37,49,12,0,0.4127025604248047

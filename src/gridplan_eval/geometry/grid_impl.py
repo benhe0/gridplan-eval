@@ -418,3 +418,92 @@ class GridGeometry:
             return parts[0]
 
         return space_id
+
+
+def _check_cells_contiguous(cells: set[tuple[int, int]]) -> bool:
+    """Check if a set of cells forms a contiguous region using BFS.
+
+    Args:
+        cells: Set of (row, col) coordinate tuples
+
+    Returns:
+        True if all cells are reachable from any starting cell
+    """
+    if len(cells) <= 1:
+        return True
+
+    start = next(iter(cells))
+    visited = {start}
+    queue = deque([start])
+
+    while queue:
+        row, col = queue.popleft()
+        for dr, dc in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+            neighbor = (row + dr, col + dc)
+            if neighbor in cells and neighbor not in visited:
+                visited.add(neighbor)
+                queue.append(neighbor)
+
+    return len(visited) == len(cells)
+
+
+def build_grid_space_from_cell_ids(
+    cell_ids: list[str],
+    grid_rows: int,
+    grid_cols: int,
+) -> GridSpace | None:
+    """Build GridSpace from cell IDs for pure-Python grid engine.
+
+    Parses cell IDs to (row, col) tuples, supporting multiple formats:
+    - "row;col" format (e.g., "3;5") - semicolon separator
+    - "row_col" format (e.g., "3_5") - underscore separator
+
+    Validates coordinates are within grid bounds and checks for contiguity.
+
+    Args:
+        cell_ids: List of cell ID strings
+        grid_rows: Number of rows in the grid
+        grid_cols: Number of columns in the grid
+
+    Returns:
+        GridSpace object with cells and metadata, or None if no valid cells
+    """
+    cells = set()
+    invalid_cell_ids = []
+
+    for cell_id in cell_ids:
+        try:
+            # Support both "row;col" and "row_col" formats
+            if ";" in cell_id:
+                parts = cell_id.split(";")
+            else:
+                parts = cell_id.split("_")
+
+            if len(parts) != 2:
+                invalid_cell_ids.append(cell_id)
+                continue
+
+            row, col = int(parts[0]), int(parts[1])
+
+            # Validate bounds
+            if 0 <= row < grid_rows and 0 <= col < grid_cols:
+                cells.add((row, col))
+            else:
+                invalid_cell_ids.append(cell_id)
+        except (ValueError, AttributeError):
+            invalid_cell_ids.append(cell_id)
+            continue
+
+    if not cells:
+        return None
+
+    # Check contiguity
+    is_fragmented = not _check_cells_contiguous(cells)
+
+    return GridSpace(
+        cells=frozenset(cells),
+        metadata={
+            "is_fragmented": is_fragmented,
+            "invalid_cell_ids": invalid_cell_ids,
+        },
+    )

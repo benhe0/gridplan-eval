@@ -1,0 +1,8 @@
+floor_plan_id,model_name,config_file,timestamp,constraints_passed,constraints_total,constraints_failed,constraints_skipped,execution_time_ms
+2f1ba790-4aa0-4e1f-b897-ff3fd08d30c5,deepseek/deepseek-r1-0528,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:41.961731,34,49,15,0,0.3161430358886719
+338ed104-98d7-41a1-9e62-fcd7cb4d9281,deepseek/deepseek-r1-0528,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:41.969688,46,49,3,0,0.7891654968261719
+4aeaf7e4-b9b9-451b-97ef-d7686019d0dd,deepseek/deepseek-r1-0528,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.038765,5,49,44,0,0.2009868621826172
+7afb9dfa-4bd3-47b5-aa28-a967a4c80bab,deepseek/deepseek-r1-0528,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.184895,46,49,3,0,0.8859634399414062
+7c13fd05-a186-4b3e-b0ae-dc90fddf9779,deepseek/deepseek-r1-0528,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.194007,37,49,12,0,0.8020401000976562
+b43ac5c3-b461-4369-ade6-39ac5776c126,deepseek/deepseek-r1-0528,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.353792,41,49,8,0,0.7739067077636719
+dd25db35-c7eb-4db7-b2e6-d2f31fa6c6e6,deepseek/deepseek-r1-0528,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.427275,42,49,7,0,0.8330345153808594

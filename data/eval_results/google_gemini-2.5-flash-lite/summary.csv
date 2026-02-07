@@ -1,0 +1,17 @@
+floor_plan_id,model_name,config_file,timestamp,constraints_passed,constraints_total,constraints_failed,constraints_skipped,execution_time_ms
+0169b8e4-b090-428c-ad32-9acc61fdc056,google/gemini-2.5-flash-lite,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:41.878417,39,49,10,0,1.0268688201904297
+2f04a709-0faa-4e28-a6f5-df70d6fd9729,google/gemini-2.5-flash-lite,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:41.958260,40,49,9,0,0.36907196044921875
+31577358-7579-4550-bb53-3cdaae3a40dd,google/gemini-2.5-flash-lite,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:41.965343,35,49,14,0,0.39196014404296875
+416f6cfd-4975-490a-a586-312707c9afd4,google/gemini-2.5-flash-lite,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.009478,37,49,12,0,0.34308433532714844
+610a689d-86ef-476d-a624-60fd6a127f74,google/gemini-2.5-flash-lite,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.103961,27,49,22,0,0.3380775451660156
+639f3fda-3f9d-4797-ae33-4d4ff6671507,google/gemini-2.5-flash-lite,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.111359,38,49,11,0,0.3750324249267578
+68654d6b-2c13-48ff-89a9-9317e886d00c,google/gemini-2.5-flash-lite,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.129564,36,49,13,0,0.43082237243652344
+6f79e603-3a63-4a2d-9377-26ba40e271b9,google/gemini-2.5-flash-lite,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.147678,43,49,6,0,0.3008842468261719
+73d7b1f9-c39f-4589-85d4-946c7285dc6b,google/gemini-2.5-flash-lite,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.154952,41,49,8,0,0.3211498260498047
+857b2cab-2b5b-4f08-a968-f4164a3313a7,google/gemini-2.5-flash-lite,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.215542,35,49,14,0,0.2689361572265625
+abaa36c4-c753-4e96-af48-3217036c0f82,google/gemini-2.5-flash-lite,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.323768,33,49,16,0,0.3609657287597656
+abaae906-83df-4757-8d99-2695283fae04,google/gemini-2.5-flash-lite,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.327433,36,49,13,0,0.3368854522705078
+c0ce606d-7546-4649-a22d-f762bbc7e615,google/gemini-2.5-flash-lite,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.372025,33,49,16,0,0.4379749298095703
+c13cd53d-b793-4c5f-8444-5ae23d61ffb5,google/gemini-2.5-flash-lite,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.375690,43,49,6,0,0.2970695495605469
+facf67ee-0e3e-4214-8fb3-ce141302fa9c,google/gemini-2.5-flash-lite,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.488661,41,49,8,0,0.4119873046875
+ffa196bc-32a5-40c9-9350-ae3d9655d5da,google/gemini-2.5-flash-lite,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.510745,36,49,13,0,0.29206275939941406

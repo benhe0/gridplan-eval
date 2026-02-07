@@ -1,0 +1,16 @@
+floor_plan_id,model_name,config_file,timestamp,constraints_passed,constraints_total,constraints_failed,constraints_skipped,execution_time_ms
+0203240e-b88e-4e42-a2c1-a05ad82a4bcf,openai/gpt-4o,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:41.897617,34,49,15,0,0.5898475646972656
+2126edaf-3f50-4596-bb13-a8723ce96e17,openai/gpt-4o,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:41.927479,38,49,11,0,0.23293495178222656
+65fd8438-6962-481e-8cf7-bfd1ac88edbd,openai/gpt-4o,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.118497,37,49,12,0,0.26607513427734375
+77ce27f8-d630-47b8-8007-9688c5e9ecc7,openai/gpt-4o,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.169383,37,49,12,0,0.2658367156982422
+7f193694-e1c4-46b9-80c6-6ff2057d4c76,openai/gpt-4o,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.204879,35,49,14,0,0.263214111328125
+8b0fda37-dbbe-4369-94cf-accc0cb3a631,openai/gpt-4o,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.232777,32,49,17,0,0.2570152282714844
+9260ba46-7d80-4446-8081-86b1aa1138c9,openai/gpt-4o,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.248211,36,49,13,0,0.24199485778808594
+b77d6225-81e1-464a-9495-ebccfa817b9e,openai/gpt-4o,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.360713,39,49,10,0,0.2620220184326172
+b8bd6cae-d31e-4b3b-9325-dad8715159cb,openai/gpt-4o,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.364212,36,49,13,0,0.2338886260986328
+c2af72dc-19fe-48a1-8c08-32d4ce81061a,openai/gpt-4o,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.378957,37,49,12,0,0.23818016052246094
+c332ea3d-284e-489e-b74b-2b18e5a7fd04,openai/gpt-4o,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.382521,33,49,16,0,0.19025802612304688
+c3c52de2-9326-4fef-a786-4044c0716486,openai/gpt-4o,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.385623,35,49,14,0,0.19812583923339844
+c880c6ec-cc8e-4585-a428-54670059aba3,openai/gpt-4o,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.396558,38,49,11,0,0.2510547637939453
+f30ab4d6-60dd-45c6-81b4-29ab381a02ad,openai/gpt-4o,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.452934,35,49,14,0,0.2067089080810547
+f9b689c6-0c6a-4cad-8b61-ece6912c938f,openai/gpt-4o,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.481363,38,49,11,0,0.23984909057617188

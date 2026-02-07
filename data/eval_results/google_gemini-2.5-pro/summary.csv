@@ -1,0 +1,15 @@
+floor_plan_id,model_name,config_file,timestamp,constraints_passed,constraints_total,constraints_failed,constraints_skipped,execution_time_ms
+14497858-4a13-4c3e-b755-b3b004f81659,google/gemini-2.5-pro,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:41.905228,46,49,3,0,0.40030479431152344
+3cca490c-8596-454c-b5cb-123783a982b5,google/gemini-2.5-pro,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:41.998974,45,49,4,0,0.3159046173095703
+4c3d8f3f-c32b-4ff9-8716-a9a41041b42c,google/gemini-2.5-pro,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.049664,39,49,10,0,0.36406517028808594
+50cd756f-79e9-4699-beee-674d801531f2,google/gemini-2.5-pro,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.060092,44,49,5,0,0.3337860107421875
+7d9b00e0-8473-470b-9a64-9ea076fb162c,google/gemini-2.5-pro,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.201655,44,49,5,0,0.3552436828613281
+8a187f29-b9eb-46f8-9e52-d6878e4ddd1e,google/gemini-2.5-pro,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.229444,46,49,3,0,0.3590583801269531
+b026026e-a386-4d09-86e9-c22dca5ac94e,google/gemini-2.5-pro,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.331339,42,49,7,0,0.40602684020996094
+b401e7ae-60c9-4492-8218-82e5d11b755c,google/gemini-2.5-pro,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.349674,47,49,2,0,0.37980079650878906
+d13e0622-63f3-4aae-a74f-3848d6e7968d,google/gemini-2.5-pro,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.416178,43,49,6,0,0.3578662872314453
+d568ee89-6f22-45eb-9e57-95bb02447cd4,google/gemini-2.5-pro,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.419625,47,49,2,0,0.3409385681152344
+ef53b546-ba18-4db8-9c7d-69e43a8dd2aa,google/gemini-2.5-pro,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.445708,46,49,3,0,0.36907196044921875
+f382a68e-7a1e-4649-adf8-54b57a016462,google/gemini-2.5-pro,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.456283,46,49,3,0,0.37980079650878906
+f7969474-00c4-43b1-8872-0ea412fba523,google/gemini-2.5-pro,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.474247,44,49,5,0,0.3299713134765625
+fb9e495c-2bb6-498b-867b-c00d3ad0d79d,google/gemini-2.5-pro,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.492221,44,49,5,0,0.3509521484375

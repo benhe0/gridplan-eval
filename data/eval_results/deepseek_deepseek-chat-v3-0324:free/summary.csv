@@ -1,0 +1,16 @@
+floor_plan_id,model_name,config_file,timestamp,constraints_passed,constraints_total,constraints_failed,constraints_skipped,execution_time_ms
+25375bdf-b220-4390-a08a-dc48317af16d,deepseek/deepseek-chat-v3-0324:free,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:41.943262,47,49,2,0,0.7798671722412109
+45290fc6-bc5f-461a-9d64-541ebdac574c,deepseek/deepseek-chat-v3-0324:free,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.013474,45,49,4,0,0.4730224609375
+4765cfd1-5662-481d-b8f0-2491397728c1,deepseek/deepseek-chat-v3-0324:free,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.028048,42,49,7,0,0.4050731658935547
+4b8da711-cf59-4472-af4c-f75da51cfef0,deepseek/deepseek-chat-v3-0324:free,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.042396,36,49,13,0,0.3635883331298828
+55c3e4c6-100a-4da2-9ed2-b2b3e660b97a,deepseek/deepseek-chat-v3-0324:free,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.074780,35,49,14,0,0.44798851013183594
+5f2c1d01-05ff-467e-b889-49d1e484930f,deepseek/deepseek-chat-v3-0324:free,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.091009,35,49,14,0,1.0402202606201172
+6a61d7c7-dbfb-455e-9926-8e84fdcdd394,deepseek/deepseek-chat-v3-0324:free,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.133351,34,49,15,0,0.44083595275878906
+720a957e-c701-419d-9bab-7a6692629e40,deepseek/deepseek-chat-v3-0324:free,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.151144,36,49,13,0,0.3147125244140625
+79f020fb-f9df-422d-a15e-3ffd44f66a4d,deepseek/deepseek-chat-v3-0324:free,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.177652,7,49,42,0,0.7088184356689453
+7bf912f6-cd99-47c2-acd8-79d4198b8ae1,deepseek/deepseek-chat-v3-0324:free,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.189854,47,49,2,0,1.0199546813964844
+899f92a6-626d-4b2f-b1fe-b2a29b324167,deepseek/deepseek-chat-v3-0324:free,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.226013,13,49,36,0,0.5807876586914062
+9d2d8718-9854-48c0-8639-13d0bd8cd9b4,deepseek/deepseek-chat-v3-0324:free,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.270209,45,49,4,0,0.5991458892822266
+b2c22f81-cb10-4712-9c56-8502b0d4721d,deepseek/deepseek-chat-v3-0324:free,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.346066,40,49,9,0,0.4680156707763672
+e2634164-d3d8-4e00-bd2f-3065a8d41bb9,deepseek/deepseek-chat-v3-0324:free,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.434984,40,49,9,0,0.3509521484375
+f8a41512-01a6-46bf-9d03-700d8a5d9f78,deepseek/deepseek-chat-v3-0324:free,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.477844,39,49,10,0,0.5800724029541016

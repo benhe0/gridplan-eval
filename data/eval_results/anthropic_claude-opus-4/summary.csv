@@ -1,0 +1,16 @@
+floor_plan_id,model_name,config_file,timestamp,constraints_passed,constraints_total,constraints_failed,constraints_skipped,execution_time_ms
+3c5eb08d-491b-45e2-b987-d5a021574eea,anthropic/claude-opus-4,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:41.995342,47,49,2,0,0.3829002380371094
+465dbe95-3aba-4651-bad1-7f4f7e547328,anthropic/claude-opus-4,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.020523,48,49,1,0,0.3981590270996094
+488c89aa-f9a8-4539-933d-882fcab8e876,anthropic/claude-opus-4,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.031833,44,49,5,0,0.38623809814453125
+54c9bb01-faa5-438c-b04d-5e19d82a2bf4,anthropic/claude-opus-4,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.071171,46,49,3,0,0.3509521484375
+59a46826-64ea-4670-83a2-77d4d9edd2b8,anthropic/claude-opus-4,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.078266,37,49,12,0,0.3731250762939453
+6023465e-ac6a-4703-ac2f-62aed358cc31,anthropic/claude-opus-4,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.095817,42,49,7,0,0.41174888610839844
+65d156ba-6294-4d31-9e6b-3c878344de02,anthropic/claude-opus-4,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.115293,45,49,4,0,0.46181678771972656
+6817c1cc-8d04-4085-85d0-0d4c24f90f96,anthropic/claude-opus-4,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.126054,48,49,1,0,0.4017353057861328
+a8322dbf-834a-4727-805b-b5d37c965466,anthropic/claude-opus-4,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.297929,43,49,6,0,0.4291534423828125
+a84607e0-b7db-4ec8-8ba1-8adc50fecb26,anthropic/claude-opus-4,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.302366,39,49,10,0,0.45371055603027344
+dc60fb9a-bceb-48de-a582-7a9094d59a7e,anthropic/claude-opus-4,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.422977,35,49,14,0,0.2849102020263672
+e1b84288-cebf-4a81-a90e-55e473502398,anthropic/claude-opus-4,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.431657,45,49,4,0,0.4649162292480469
+e65cb22d-cc3f-420e-a8a9-1e44fb8f219a,anthropic/claude-opus-4,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.438560,44,49,5,0,0.34689903259277344
+f519701b-5904-4426-b674-042dc49be681,anthropic/claude-opus-4,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.459731,44,49,5,0,0.34880638122558594
+f58c02fb-5f69-42b7-8338-da1edc7d8bde,anthropic/claude-opus-4,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.467181,47,49,2,0,0.4010200500488281

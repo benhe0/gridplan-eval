@@ -1,0 +1,954 @@
+{
+  "floor_plan_id": "4f695700-8819-4fc5-9120-c6ab9e623cee",
+  "config_file": "configs/15x15_startup_non_topologicpy.yaml",
+  "timestamp": "2026-01-24T17:37:42.053161",
+  "model_name": "google/gemini-2.5-flash",
+  "summary": {
+    "passed": 29,
+    "total": 49,
+    "failed": 20,
+    "skipped": 0
+  },
+  "results": [
+    {
+      "constraint_id": "grid_bounds",
+      "constraint_type": "grid_bounds",
+      "passed": true,
+      "status": "evaluated",
+      "metadata": {
+        "grid_width": 15,
+        "grid_height": 15,
+        "invalid_cells": [],
+        "reason": "All cells within grid [15x15]"
+      }
+    },
+    {
+      "constraint_id": "cell_overlap",
+      "constraint_type": "cell_overlap",
+      "passed": false,
+      "status": "evaluated",
+      "metadata": {
+        "overlap_count": 51,
+        "overlaps": [
+          {
+            "cell_id": "8;0",
+            "spaces": [
+              "open_work_area_1",
+              "lounge_1"
+            ]
+          },
+          {
+            "cell_id": "8;3",
+            "spaces": [
+              "open_work_area_1",
+              "lounge_1"
+            ]
+          },
+          {
+            "cell_id": "8;6",
+            "spaces": [
+              "open_work_area_1",
+              "storage_2"
+            ]
+          },
+          {
+            "cell_id": "7;4",
+            "spaces": [
+              "open_work_area_1",
+              "lounge_1"
+            ]
+          },
+          {
+            "cell_id": "7;1",
+            "spaces": [
+              "open_work_area_1",
+              "lounge_1"
+            ]
+          },
+          {
+            "cell_id": "8;2",
+            "spaces": [
+              "open_work_area_1",
+              "lounge_1"
+            ]
+          },
+          {
+            "cell_id": "8;5",
+            "spaces": [
+              "open_work_area_1",
+              "storage_2"
+            ]
+          },
+          {
+            "cell_id": "7;0",
+            "spaces": [
+              "open_work_area_1",
+              "lounge_1"
+            ]
+          },
+          {
+            "cell_id": "7;3",
+            "spaces": [
+              "open_work_area_1",
+              "lounge_1"
+            ]
+          },
+          {
+            "cell_id": "7;6",
+            "spaces": [
+              "open_work_area_1",
+              "storage_2"
+            ]
+          },
+          {
+            "cell_id": "8;4",
+            "spaces": [
+              "open_work_area_1",
+              "lounge_1"
+            ]
+          },
+          {
+            "cell_id": "8;1",
+            "spaces": [
+              "open_work_area_1",
+              "lounge_1"
+            ]
+          },
+          {
+            "cell_id": "7;2",
+            "spaces": [
+              "open_work_area_1",
+              "lounge_1"
+            ]
+          },
+          {
+            "cell_id": "7;5",
+            "spaces": [
+              "open_work_area_1",
+              "storage_2"
+            ]
+          },
+          {
+            "cell_id": "0;10",
+            "spaces": [
+              "reception_1",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "1;11",
+            "spaces": [
+              "reception_1",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "0;13",
+            "spaces": [
+              "reception_1",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "2;10",
+            "spaces": [
+              "reception_1",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "4;12",
+            "spaces": [
+              "reception_1",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "3;10",
+            "spaces": [
+              "reception_1",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "1;14",
+            "spaces": [
+              "reception_1",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "2;13",
+            "spaces": [
+              "reception_1",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "3;13",
+            "spaces": [
+              "reception_1",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "0;14",
+            "spaces": [
+              "reception_1",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "2;11",
+            "spaces": [
+              "reception_1",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "0;11",
+            "spaces": [
+              "reception_1",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "3;11",
+            "spaces": [
+              "reception_1",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "2;14",
+            "spaces": [
+              "reception_1",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "1;12",
+            "spaces": [
+              "reception_1",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "4;10",
+            "spaces": [
+              "reception_1",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "3;14",
+            "spaces": [
+              "reception_1",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "4;13",
+            "spaces": [
+              "reception_1",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "0;12",
+            "spaces": [
+              "reception_1",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "1;13",
+            "spaces": [
+              "reception_1",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "2;12",
+            "spaces": [
+              "reception_1",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "1;10",
+            "spaces": [
+              "reception_1",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "4;14",
+            "spaces": [
+              "reception_1",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "3;12",
+            "spaces": [
+              "reception_1",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "4;11",
+            "spaces": [
+              "reception_1",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "5;10",
+            "spaces": [
+              "meeting_3",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "5;11",
+            "spaces": [
+              "meeting_3",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "6;10",
+            "spaces": [
+              "meeting_3",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "6;11",
+            "spaces": [
+              "meeting_3",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "6;12",
+            "spaces": [
+              "meeting_4",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "6;13",
+            "spaces": [
+              "meeting_4",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "5;12",
+            "spaces": [
+              "meeting_4",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "5;13",
+            "spaces": [
+              "meeting_4",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "10;10",
+            "spaces": [
+              "meeting_5",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "10;11",
+            "spaces": [
+              "meeting_5",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "11;10",
+            "spaces": [
+              "meeting_5",
+              "circulation_1"
+            ]
+          },
+          {
+            "cell_id": "11;11",
+            "spaces": [
+              "meeting_5",
+              "circulation_1"
+            ]
+          }
+        ],
+        "reason": "51 cells allocated to multiple spaces"
+      }
+    },
+    {
+      "constraint_id": "allocation",
+      "constraint_type": "allocation",
+      "passed": false,
+      "status": "evaluated",
+      "metadata": {
+        "allocated_cells": 194,
+        "target_cells": 225,
+        "total_cells": 225,
+        "actual_percentage": 86.22222222222223,
+        "target_percentage": 100.0,
+        "reason": "Under-allocated: 194/225 cells (86.2%)"
+      }
+    },
+    {
+      "constraint_id": "global_connectivity",
+      "constraint_type": "global_connectivity",
+      "passed": true,
+      "status": "evaluated",
+      "metadata": {
+        "num_spaces": 13,
+        "num_components": 1,
+        "reason": "All 13 spaces connected"
+      }
+    },
+    {
+      "constraint_id": "presence_open_work_area_1",
+      "constraint_type": "presence",
+      "passed": true,
+      "status": "evaluated",
+      "metadata": {
+        "instance_id": "open_work_area_1",
+        "space_type": "open_work_area",
+        "reason": "Instance 'open_work_area_1' found in floor plan"
+      }
+    },
+    {
+      "constraint_id": "contiguity_open_work_area_1",
+      "constraint_type": "contiguity",
+      "passed": true,
+      "status": "evaluated",
+      "metadata": {
+        "instance_id": "open_work_area_1",
+        "space_type": "open_work_area",
+        "is_contiguous": true,
+        "reason": "Space is contiguous"
+      }
+    },
+    {
+      "constraint_id": "presence_meeting_1",
+      "constraint_type": "presence",
+      "passed": true,
+      "status": "evaluated",
+      "metadata": {
+        "instance_id": "meeting_1",
+        "space_type": "meeting",
+        "reason": "Instance 'meeting_1' found in floor plan"
+      }
+    },
+    {
+      "constraint_id": "contiguity_meeting_1",
+      "constraint_type": "contiguity",
+      "passed": true,
+      "status": "evaluated",
+      "metadata": {
+        "instance_id": "meeting_1",
+        "space_type": "meeting",
+        "is_contiguous": true,
+        "reason": "Space is contiguous"
+      }
+    },
+    {
+      "constraint_id": "presence_meeting_2",
+      "constraint_type": "presence",
+      "passed": true,
+      "status": "evaluated",
+      "metadata": {
+        "instance_id": "meeting_2",
+        "space_type": "meeting",
+        "reason": "Instance 'meeting_2' found in floor plan"
+      }
+    },
+    {
+      "constraint_id": "contiguity_meeting_2",
+      "constraint_type": "contiguity",
+      "passed": true,
+      "status": "evaluated",
+      "metadata": {
+        "instance_id": "meeting_2",
+        "space_type": "meeting",
+        "is_contiguous": true,
+        "reason": "Space is contiguous"
+      }
+    },
+    {
+      "constraint_id": "presence_phone_booth_1",
+      "constraint_type": "presence",
+      "passed": false,
+      "status": "evaluated",
+      "metadata": {
+        "instance_id": "phone_booth_1",
+        "space_type": "phone_booth",
+        "reason": "Instance 'phone_booth_1' NOT found in floor plan"
+      }
+    },
+    {
+      "constraint_id": "contiguity_phone_booth_1",
+      "constraint_type": "contiguity",
+      "passed": false,
+      "status": "skipped",
+      "metadata": {
+        "space_type": "phone_booth",
+        "reason": "Instance 'phone_booth_1' not found",
+        "skipped_reason": "missing_space_type"
+      }
+    },
+    {
+      "constraint_id": "presence_phone_booth_2",
+      "constraint_type": "presence",
+      "passed": false,
+      "status": "evaluated",
+      "metadata": {
+        "instance_id": "phone_booth_2",
+        "space_type": "phone_booth",
+        "reason": "Instance 'phone_booth_2' NOT found in floor plan"
+      }
+    },
+    {
+      "constraint_id": "contiguity_phone_booth_2",
+      "constraint_type": "contiguity",
+      "passed": false,
+      "status": "skipped",
+      "metadata": {
+        "space_type": "phone_booth",
+        "reason": "Instance 'phone_booth_2' not found",
+        "skipped_reason": "missing_space_type"
+      }
+    },
+    {
+      "constraint_id": "presence_phone_booth_3",
+      "constraint_type": "presence",
+      "passed": false,
+      "status": "evaluated",
+      "metadata": {
+        "instance_id": "phone_booth_3",
+        "space_type": "phone_booth",
+        "reason": "Instance 'phone_booth_3' NOT found in floor plan"
+      }
+    },
+    {
+      "constraint_id": "contiguity_phone_booth_3",
+      "constraint_type": "contiguity",
+      "passed": false,
+      "status": "skipped",
+      "metadata": {
+        "space_type": "phone_booth",
+        "reason": "Instance 'phone_booth_3' not found",
+        "skipped_reason": "missing_space_type"
+      }
+    },
+    {
+      "constraint_id": "presence_kitchen_1",
+      "constraint_type": "presence",
+      "passed": false,
+      "status": "evaluated",
+      "metadata": {
+        "instance_id": "kitchen_1",
+        "space_type": "kitchen",
+        "reason": "Instance 'kitchen_1' NOT found in floor plan"
+      }
+    },
+    {
+      "constraint_id": "contiguity_kitchen_1",
+      "constraint_type": "contiguity",
+      "passed": false,
+      "status": "skipped",
+      "metadata": {
+        "space_type": "kitchen",
+        "reason": "Instance 'kitchen_1' not found",
+        "skipped_reason": "missing_space_type"
+      }
+    },
+    {
+      "constraint_id": "presence_lounge_1",
+      "constraint_type": "presence",
+      "passed": true,
+      "status": "evaluated",
+      "metadata": {
+        "instance_id": "lounge_1",
+        "space_type": "lounge",
+        "reason": "Instance 'lounge_1' found in floor plan"
+      }
+    },
+    {
+      "constraint_id": "contiguity_lounge_1",
+      "constraint_type": "contiguity",
+      "passed": true,
+      "status": "evaluated",
+      "metadata": {
+        "instance_id": "lounge_1",
+        "space_type": "lounge",
+        "is_contiguous": true,
+        "reason": "Space is contiguous"
+      }
+    },
+    {
+      "constraint_id": "presence_bathroom_women_1",
+      "constraint_type": "presence",
+      "passed": true,
+      "status": "evaluated",
+      "metadata": {
+        "instance_id": "bathroom_women_1",
+        "space_type": "bathroom_women",
+        "reason": "Instance 'bathroom_women_1' found in floor plan"
+      }
+    },
+    {
+      "constraint_id": "contiguity_bathroom_women_1",
+      "constraint_type": "contiguity",
+      "passed": true,
+      "status": "evaluated",
+      "metadata": {
+        "instance_id": "bathroom_women_1",
+        "space_type": "bathroom_women",
+        "is_contiguous": true,
+        "reason": "Space is contiguous"
+      }
+    },
+    {
+      "constraint_id": "presence_bathroom_men_1",
+      "constraint_type": "presence",
+      "passed": true,
+      "status": "evaluated",
+      "metadata": {
+        "instance_id": "bathroom_men_1",
+        "space_type": "bathroom_men",
+        "reason": "Instance 'bathroom_men_1' found in floor plan"
+      }
+    },
+    {
+      "constraint_id": "contiguity_bathroom_men_1",
+      "constraint_type": "contiguity",
+      "passed": true,
+      "status": "evaluated",
+      "metadata": {
+        "instance_id": "bathroom_men_1",
+        "space_type": "bathroom_men",
+        "is_contiguous": true,
+        "reason": "Space is contiguous"
+      }
+    },
+    {
+      "constraint_id": "presence_storage_1",
+      "constraint_type": "presence",
+      "passed": true,
+      "status": "evaluated",
+      "metadata": {
+        "instance_id": "storage_1",
+        "space_type": "storage",
+        "reason": "Instance 'storage_1' found in floor plan"
+      }
+    },
+    {
+      "constraint_id": "contiguity_storage_1",
+      "constraint_type": "contiguity",
+      "passed": true,
+      "status": "evaluated",
+      "metadata": {
+        "instance_id": "storage_1",
+        "space_type": "storage",
+        "is_contiguous": true,
+        "reason": "Space is contiguous"
+      }
+    },
+    {
+      "constraint_id": "presence_reception_1",
+      "constraint_type": "presence",
+      "passed": true,
+      "status": "evaluated",
+      "metadata": {
+        "instance_id": "reception_1",
+        "space_type": "reception",
+        "reason": "Instance 'reception_1' found in floor plan"
+      }
+    },
+    {
+      "constraint_id": "contiguity_reception_1",
+      "constraint_type": "contiguity",
+      "passed": true,
+      "status": "evaluated",
+      "metadata": {
+        "instance_id": "reception_1",
+        "space_type": "reception",
+        "is_contiguous": true,
+        "reason": "Space is contiguous"
+      }
+    },
+    {
+      "constraint_id": "presence_circulation_1",
+      "constraint_type": "presence",
+      "passed": true,
+      "status": "evaluated",
+      "metadata": {
+        "instance_id": "circulation_1",
+        "space_type": "circulation",
+        "reason": "Instance 'circulation_1' found in floor plan"
+      }
+    },
+    {
+      "constraint_id": "facade_circulation_1",
+      "constraint_type": "facade_access",
+      "passed": true,
+      "status": "evaluated",
+      "metadata": {
+        "instance_id": "circulation_1",
+        "space_type": "circulation",
+        "has_facade_access": true,
+        "requirement": "required",
+        "reason": "Space has facade access as required"
+      }
+    },
+    {
+      "constraint_id": "min_width_circulation_1",
+      "constraint_type": "min_width",
+      "passed": true,
+      "status": "evaluated",
+      "metadata": {
+        "instance_id": "circulation_1",
+        "space_type": "circulation",
+        "min_width": 2,
+        "has_bottleneck": false,
+        "reason": "No bottlenecks detected, min width >= 2"
+      }
+    },
+    {
+      "constraint_id": "door_reception_1_circulation_1",
+      "constraint_type": "door",
+      "passed": true,
+      "status": "evaluated",
+      "metadata": {
+        "source_id": "reception_1",
+        "target_id": "circulation_1",
+        "source_type": "reception",
+        "target_type": "circulation",
+        "reason": "Door exists between 'reception_1' and 'circulation_1'"
+      }
+    },
+    {
+      "constraint_id": "door_open_work_area_1_circulation_1",
+      "constraint_type": "door",
+      "passed": false,
+      "status": "evaluated",
+      "metadata": {
+        "source_id": "open_work_area_1",
+        "target_id": "circulation_1",
+        "source_type": "open_work_area",
+        "target_type": "circulation",
+        "reason": "Spaces 'open_work_area_1' and 'circulation_1' are not adjacent"
+      }
+    },
+    {
+      "constraint_id": "adjacency_open_work_area_1_meeting_1",
+      "constraint_type": "adjacency",
+      "passed": true,
+      "status": "evaluated",
+      "metadata": {
+        "source_id": "open_work_area_1",
+        "target_id": "meeting_1",
+        "source_type": "open_work_area",
+        "target_type": "meeting",
+        "reason": "'open_work_area_1' is adjacent to 'meeting_1'"
+      }
+    },
+    {
+      "constraint_id": "adjacency_open_work_area_1_meeting_2",
+      "constraint_type": "adjacency",
+      "passed": true,
+      "status": "evaluated",
+      "metadata": {
+        "source_id": "open_work_area_1",
+        "target_id": "meeting_2",
+        "source_type": "open_work_area",
+        "target_type": "meeting",
+        "reason": "'open_work_area_1' is adjacent to 'meeting_2'"
+      }
+    },
+    {
+      "constraint_id": "avoidance_open_work_area_1_bathroom_men_1",
+      "constraint_type": "avoidance",
+      "passed": true,
+      "status": "evaluated",
+      "metadata": {
+        "source_id": "open_work_area_1",
+        "target_id": "bathroom_men_1",
+        "source_type": "open_work_area",
+        "target_type": "bathroom_men",
+        "reason": "'open_work_area_1' correctly avoids 'bathroom_men_1'"
+      }
+    },
+    {
+      "constraint_id": "avoidance_open_work_area_1_bathroom_women_1",
+      "constraint_type": "avoidance",
+      "passed": true,
+      "status": "evaluated",
+      "metadata": {
+        "source_id": "open_work_area_1",
+        "target_id": "bathroom_women_1",
+        "source_type": "open_work_area",
+        "target_type": "bathroom_women",
+        "reason": "'open_work_area_1' correctly avoids 'bathroom_women_1'"
+      }
+    },
+    {
+      "constraint_id": "door_meeting_1_circulation_1",
+      "constraint_type": "door",
+      "passed": true,
+      "status": "evaluated",
+      "metadata": {
+        "source_id": "meeting_1",
+        "target_id": "circulation_1",
+        "source_type": "meeting",
+        "target_type": "circulation",
+        "reason": "Door exists between 'meeting_1' and 'circulation_1'"
+      }
+    },
+    {
+      "constraint_id": "door_meeting_2_circulation_1",
+      "constraint_type": "door",
+      "passed": true,
+      "status": "evaluated",
+      "metadata": {
+        "source_id": "meeting_2",
+        "target_id": "circulation_1",
+        "source_type": "meeting",
+        "target_type": "circulation",
+        "reason": "Door exists between 'meeting_2' and 'circulation_1'"
+      }
+    },
+    {
+      "constraint_id": "door_phone_booth_1_circulation_1",
+      "constraint_type": "door",
+      "passed": false,
+      "status": "skipped",
+      "metadata": {
+        "space_type": "phone_booth",
+        "reason": "Source instance 'phone_booth_1' not found",
+        "skipped_reason": "missing_space_type"
+      }
+    },
+    {
+      "constraint_id": "door_phone_booth_2_circulation_1",
+      "constraint_type": "door",
+      "passed": false,
+      "status": "skipped",
+      "metadata": {
+        "space_type": "phone_booth",
+        "reason": "Source instance 'phone_booth_2' not found",
+        "skipped_reason": "missing_space_type"
+      }
+    },
+    {
+      "constraint_id": "door_phone_booth_3_circulation_1",
+      "constraint_type": "door",
+      "passed": false,
+      "status": "skipped",
+      "metadata": {
+        "space_type": "phone_booth",
+        "reason": "Source instance 'phone_booth_3' not found",
+        "skipped_reason": "missing_space_type"
+      }
+    },
+    {
+      "constraint_id": "door_kitchen_1_lounge_1",
+      "constraint_type": "door",
+      "passed": false,
+      "status": "skipped",
+      "metadata": {
+        "space_type": "kitchen",
+        "reason": "Source instance 'kitchen_1' not found",
+        "skipped_reason": "missing_space_type"
+      }
+    },
+    {
+      "constraint_id": "door_kitchen_1_circulation_1",
+      "constraint_type": "door",
+      "passed": false,
+      "status": "skipped",
+      "metadata": {
+        "space_type": "kitchen",
+        "reason": "Source instance 'kitchen_1' not found",
+        "skipped_reason": "missing_space_type"
+      }
+    },
+    {
+      "constraint_id": "door_lounge_1_circulation_1",
+      "constraint_type": "door",
+      "passed": false,
+      "status": "evaluated",
+      "metadata": {
+        "source_id": "lounge_1",
+        "target_id": "circulation_1",
+        "source_type": "lounge",
+        "target_type": "circulation",
+        "reason": "Spaces 'lounge_1' and 'circulation_1' are not adjacent"
+      }
+    },
+    {
+      "constraint_id": "adjacency_bathroom_men_1_bathroom_women_1",
+      "constraint_type": "adjacency",
+      "passed": true,
+      "status": "evaluated",
+      "metadata": {
+        "source_id": "bathroom_men_1",
+        "target_id": "bathroom_women_1",
+        "source_type": "bathroom_men",
+        "target_type": "bathroom_women",
+        "reason": "'bathroom_men_1' is adjacent to 'bathroom_women_1'"
+      }
+    },
+    {
+      "constraint_id": "door_bathroom_men_1_circulation_1",
+      "constraint_type": "door",
+      "passed": false,
+      "status": "evaluated",
+      "metadata": {
+        "source_id": "bathroom_men_1",
+        "target_id": "circulation_1",
+        "source_type": "bathroom_men",
+        "target_type": "circulation",
+        "reason": "Spaces 'bathroom_men_1' and 'circulation_1' are not adjacent"
+      }
+    },
+    {
+      "constraint_id": "door_bathroom_women_1_circulation_1",
+      "constraint_type": "door",
+      "passed": false,
+      "status": "evaluated",
+      "metadata": {
+        "source_id": "bathroom_women_1",
+        "target_id": "circulation_1",
+        "source_type": "bathroom_women",
+        "target_type": "circulation",
+        "reason": "Spaces 'bathroom_women_1' and 'circulation_1' are not adjacent"
+      }
+    },
+    {
+      "constraint_id": "door_storage_1_circulation_1",
+      "constraint_type": "door",
+      "passed": false,
+      "status": "evaluated",
+      "metadata": {
+        "source_id": "storage_1",
+        "target_id": "circulation_1",
+        "source_type": "storage",
+        "target_type": "circulation",
+        "reason": "Spaces 'storage_1' and 'circulation_1' are not adjacent"
+      }
+    }
+  ],
+  "execution_time_ms": 0.41794776916503906
+}

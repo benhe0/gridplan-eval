@@ -1,0 +1,16 @@
+floor_plan_id,model_name,config_file,timestamp,constraints_passed,constraints_total,constraints_failed,constraints_skipped,execution_time_ms
+2b0fb727-d5f0-428d-af9d-60b14986dfb8,anthropic/claude-sonnet-4,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:41.951112,41,49,8,0,0.4038810729980469
+3977c413-74bd-4f39-8a21-d4855c841623,anthropic/claude-sonnet-4,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:41.988303,46,49,3,0,0.38814544677734375
+6abd683d-0a02-4be3-bf8a-273da5c3c344,anthropic/claude-sonnet-4,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.136952,44,49,5,0,0.3483295440673828
+6ef34c92-3e0d-4790-9855-eb4609789e05,anthropic/claude-sonnet-4,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.144213,44,49,5,0,0.45680999755859375
+7431ef31-f67f-4c74-be41-969d528daffd,anthropic/claude-sonnet-4,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.162000,44,49,5,0,0.37384033203125
+88999f0f-279b-42bc-9399-703931070d0b,anthropic/claude-sonnet-4,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.218856,45,49,4,0,0.4398822784423828
+88ae997e-eca6-4130-bc4e-6e9892d416a1,anthropic/claude-sonnet-4,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.222290,47,49,2,0,0.36907196044921875
+9291e5eb-6511-4d23-a734-1ee06fa639b4,anthropic/claude-sonnet-4,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.251800,48,49,1,0,0.4799365997314453
+9b25e86a-93f7-41bf-9b3e-eb125a35466b,anthropic/claude-sonnet-4,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.262621,36,49,13,0,0.3390312194824219
+a41dd30c-8def-4aa8-bd4b-b856eb7f673a,anthropic/claude-sonnet-4,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.277417,43,49,6,0,0.3578662872314453
+a5714c09-0b43-4e94-ac44-dd938f39e74f,anthropic/claude-sonnet-4,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.290016,43,49,6,0,0.3838539123535156
+aab1b737-f113-463d-b02a-96538e2d6654,anthropic/claude-sonnet-4,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.320300,48,49,1,0,0.4100799560546875
+b28ffa75-0aba-4aac-8a8c-f56221ec0be4,anthropic/claude-sonnet-4,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.342109,43,49,6,0,0.3437995910644531
+c9f0b29d-9d35-4462-9131-7123b8d47a4f,anthropic/claude-sonnet-4,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.401160,40,49,9,0,0.43487548828125
+f6b91f4f-2a2f-4d4c-850e-90d76ecdfd3b,anthropic/claude-sonnet-4,configs/15x15_startup_non_topologicpy.yaml,2026-01-24T17:37:42.470933,47,49,2,0,0.4668235778808594
