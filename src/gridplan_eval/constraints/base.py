@@ -1,24 +1,11 @@
 """Base constraint class for all constraint types."""
 
-import logging
-import sys
 from abc import ABC, abstractmethod
 from typing import Iterator, Any
 
 from ..models.result import ConstraintResult, ConstraintStatus
 from ..geometry.interface import GeometryEngine
 from ..config.schema import EvalConfig
-
-logger = logging.getLogger(__name__)
-
-# ANSI color codes for terminal output
-_GREEN = "\033[92m"
-_RED = "\033[91m"
-_RESET = "\033[0m"
-
-def _supports_color() -> bool:
-    """Check if the terminal supports color output."""
-    return hasattr(sys.stderr, "isatty") and sys.stderr.isatty()
 
 
 class Constraint(ABC):
@@ -38,6 +25,7 @@ class Constraint(ABC):
         space_shells: dict[str, Any],
         grid_shell: Any,
         doors: list[dict[str, str | None]],
+        windows: list,
         config: EvalConfig,
         space_types: dict[str, str] | None = None,
     ) -> Iterator[ConstraintResult]:
@@ -48,6 +36,7 @@ class Constraint(ABC):
             space_shells: Dictionary mapping space_id to Shell
             grid_shell: Shell representing the entire grid
             doors: List of door dicts with source_space_id, target_space_id, source_cell_id, target_cell_id
+            windows: List of Window objects on cell edges
             config: Evaluation configuration
             space_types: Optional mapping of space_id to type for type lookup
 
@@ -74,32 +63,13 @@ class Constraint(ABC):
         Returns:
             ConstraintResult instance
         """
-        result = ConstraintResult(
+        return ConstraintResult(
             constraint_id=constraint_id,
             constraint_type=self.constraint_type,
             passed=passed,
             status=status,
             metadata=metadata,
         )
-
-        # Log constraint result with color
-        reason = metadata.get("reason", "")
-        if _supports_color():
-            if status == ConstraintStatus.SKIPPED:
-                log_status = f"{_RED}[SKIP]{_RESET}"
-            elif passed:
-                log_status = f"{_GREEN}[PASS]{_RESET}"
-            else:
-                log_status = f"{_RED}[FAIL]{_RESET}"
-        else:
-            if status == ConstraintStatus.SKIPPED:
-                log_status = "[SKIP]"
-            else:
-                log_status = "[PASS]" if passed else "[FAIL]"
-
-        logger.info(f"  {log_status} {constraint_id}: {reason}")
-
-        return result
 
     def _make_skipped_result(
         self,

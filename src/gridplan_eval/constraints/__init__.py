@@ -10,7 +10,7 @@ from ..constraints.logging_config import (
 )
 
 # Space constraints
-from ..constraints.count import CountConstraint
+from ..constraints.presence import PresenceConstraint
 from ..constraints.area import AreaConstraint
 from ..constraints.contiguity import ContiguityConstraint
 from ..constraints.shape import ShapeConstraint
@@ -27,13 +27,14 @@ from ..constraints.global_connectivity import GlobalConnectivityConstraint
 from ..constraints.grid_bounds import GridBoundsConstraint
 from ..constraints.cell_overlap import CellOverlapConstraint
 from ..constraints.allocation import AllocationConstraint
+from ..constraints.window_placement import WindowPlacementConstraint
 
 __all__ = [
     "Constraint",
     "configure_constraint_logging",
     "is_debug_enabled",
     # Space
-    "CountConstraint",
+    "PresenceConstraint",
     "AreaConstraint",
     "ContiguityConstraint",
     "ShapeConstraint",
@@ -48,4 +49,5 @@ __all__ = [
     "GridBoundsConstraint",
     "CellOverlapConstraint",
     "AllocationConstraint",
+    "WindowPlacementConstraint",
 ]

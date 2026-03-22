@@ -11,7 +11,7 @@ from .geometry._factory import create_geometry_engine
 from .models.result import ConstraintResult, EvaluationResult
 from .constraints import (
     Constraint,
-    CountConstraint,
+    PresenceConstraint,
     AreaConstraint,
     ContiguityConstraint,
     ShapeConstraint,
@@ -24,6 +24,7 @@ from .constraints import (
     GridBoundsConstraint,
     CellOverlapConstraint,
     AllocationConstraint,
+    WindowPlacementConstraint,
 )
 
 
@@ -71,35 +72,36 @@ class Evaluator:
         constraints.append(CellOverlapConstraint())
         constraints.append(AllocationConstraint(self.config.grid))
         constraints.append(GlobalConnectivityConstraint())
+        constraints.append(WindowPlacementConstraint(self.config.grid))
 
-        # Per-space-type constraints
-        for space_type, space_cfg in self.config.spaces.items():
-            # Count constraint
-            constraints.append(CountConstraint(space_type, space_cfg.count))
+        # Per-instance constraints
+        for instance_id, instance_cfg in self.config.spaces.items():
+            # Presence constraint (validates instance exists in floor plan)
+            constraints.append(PresenceConstraint(instance_id))
 
             # Area constraint (if bounds specified)
-            if space_cfg.min_area is not None or space_cfg.max_area is not None:
+            if instance_cfg.min_area is not None or instance_cfg.max_area is not None:
                 constraints.append(
-                    AreaConstraint(space_type, space_cfg.min_area, space_cfg.max_area)
+                    AreaConstraint(instance_id, instance_cfg.min_area, instance_cfg.max_area)
                 )
 
             # Contiguity constraint (if required)
-            if space_cfg.contiguous:
-                constraints.append(ContiguityConstraint(space_type))
+            if instance_cfg.contiguous:
+                constraints.append(ContiguityConstraint(instance_id))
 
             # Shape constraint (if specified)
-            if space_cfg.shape is not None:
-                constraints.append(ShapeConstraint(space_type, space_cfg.shape))
+            if instance_cfg.shape is not None:
+                constraints.append(ShapeConstraint(instance_id, instance_cfg.shape))
 
             # Facade access constraint (if specified)
-            if space_cfg.facade_access is not None:
-                constraints.append(FacadeConstraint(space_type, space_cfg.facade_access))
+            if instance_cfg.facade_access is not None:
+                constraints.append(FacadeConstraint(instance_id, instance_cfg.facade_access))
 
             # Min width constraint (if specified)
-            if space_cfg.min_width is not None:
-                constraints.append(MinWidthConstraint(space_type, space_cfg.min_width))
+            if instance_cfg.min_width is not None:
+                constraints.append(MinWidthConstraint(instance_id, instance_cfg.min_width))
 
-        # Connectivity constraints
+        # Connectivity constraints (now use instance IDs directly from rules)
         for rule in self.config.get_connectivity_rules():
             if rule.relation == ConnectionType.ADJACENT_TO:
                 constraints.append(AdjacencyConstraint(rule.source, rule.target))
@@ -115,6 +117,7 @@ class Evaluator:
         space_shells: dict[str, Any],
         grid_shell: Any,
         doors: list[dict[str, str | None]] | None = None,
+        windows: list | None = None,
         floor_plan_id: str = "unnamed",
         model_name: str | None = None,
         space_types: dict[str, str] | None = None,
@@ -125,6 +128,7 @@ class Evaluator:
             space_shells: Dictionary mapping space_id to Shell/Cluster
             grid_shell: Shell representing the entire grid
             doors: List of door dicts with source_space_id, target_space_id, source_cell_id, target_cell_id
+            windows: List of Window objects on cell edges
             floor_plan_id: Identifier for this floor plan
             model_name: Optional model name that generated this layout
             space_types: Optional mapping of space_id to type for type lookup
@@ -134,6 +138,7 @@ class Evaluator:
         """
         start_time = time.time()
         doors = doors or []
+        windows = windows or []
 
         results: list[ConstraintResult] = []
 
@@ -143,6 +148,7 @@ class Evaluator:
                 space_shells,
                 grid_shell,
                 doors,
+                windows,
                 self.config,
                 space_types,
             ):
@@ -166,6 +172,7 @@ class Evaluator:
         space_shells: dict[str, Any],
         grid_shell: Any,
         doors: list[dict[str, str | None]] | None = None,
+        windows: list | None = None,
         space_types: dict[str, str] | None = None,
     ) -> Generator[ConstraintResult, None, None]:
         """Stream constraint results as they are evaluated.
@@ -177,12 +184,14 @@ class Evaluator:
             space_shells: Dictionary mapping space_id to Shell/Cluster
             grid_shell: Shell representing the entire grid
             doors: List of door dicts with source_space_id, target_space_id, etc.
+            windows: List of Window objects on cell edges
             space_types: Optional mapping of space_id to type for type lookup
 
         Yields:
             ConstraintResult for each constraint check
         """
         doors = doors or []
+        windows = windows or []
 
         for constraint in self._constraints:
             for result in constraint.evaluate(
@@ -190,6 +199,7 @@ class Evaluator:
                 space_shells,
                 grid_shell,
                 doors,
+                windows,
                 self.config,
                 space_types,
             ):

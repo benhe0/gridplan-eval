@@ -12,6 +12,7 @@ Or in Python:
 """
 
 from .models.result import EvaluationResult
+from .models.window import Window, VALID_EDGES
 from .geometry.grid_impl import build_grid_space_from_cell_ids
 from .grid import make_grid, build_shell_from_cell_ids, AllocationItem
 from .export import save_json, save_csv, save_summary_csv, load_json
@@ -191,8 +192,8 @@ def extract_topology(
     cell_size: float = 1.0,
     grid_shell: Any = None,
     geometry_engine: str = "topologic",
-) -> tuple[dict[str, Any], Any, list[dict[str, str | None]], dict[str, str]]:
-    """Extract space_shells, grid_shell, doors, and space_types from response data.
+) -> tuple[dict[str, Any], Any, list[dict[str, str | None]], dict[str, str], list[Window]]:
+    """Extract space_shells, grid_shell, doors, windows, and space_types from response data.
 
     Supports both dict-based and array-based allocation formats:
     - Dict format: {"space_id": {"name": ..., "type": ..., "cell_ids": [...]}}
@@ -203,7 +204,7 @@ def extract_topology(
     (e.g., "bedroom") instead of instance IDs.
 
     Args:
-        response_data: Parsed JSON response with 'allocation' and 'doors'
+        response_data: Parsed JSON response with 'allocation', 'doors', and 'windows'
         grid_rows: Number of grid rows
         grid_cols: Number of grid columns
         cell_size: Size of each cell
@@ -213,7 +214,7 @@ def extract_topology(
                         Determines the type of shell objects created
 
     Returns:
-        Tuple of (space_shells, grid_shell, doors, space_types)
+        Tuple of (space_shells, grid_shell, doors, space_types, windows)
         All space IDs in the returned dicts are normalized to instance format.
     """
     use_grid_engine = geometry_engine == "grid"
@@ -230,6 +231,7 @@ def extract_topology(
     space_types = {}  # Maps normalized space_id to type
     id_mapping = {}   # Maps original space_id to normalized instance_id
     type_counters: dict[str, int] = {}  # Tracks instance counts per type
+    cell_to_space: dict[str, str] = {}  # Maps cell_id to normalized space_id (for window resolution)
 
     # Helper function to build the appropriate shell type
     def build_shell(cell_ids: list[str], name: str, space_type: str):
@@ -261,6 +263,8 @@ def extract_topology(
             id_mapping[original_id] = instance_id
 
             if cell_ids:
+                for cid in cell_ids:
+                    cell_to_space[cid] = instance_id
                 shell = build_shell(cell_ids, name, space_type)
                 if shell:
                     space_shells[instance_id] = shell
@@ -277,6 +281,8 @@ def extract_topology(
             id_mapping[original_id] = instance_id
 
             if cell_ids:
+                for cid in cell_ids:
+                    cell_to_space[cid] = instance_id
                 shell = build_shell(cell_ids, name, space_type)
                 if shell:
                     space_shells[instance_id] = shell
@@ -300,7 +306,17 @@ def extract_topology(
                 "target_cell_id": door.get("target_cell_id"),
             })
 
-    return space_shells, grid_shell, doors, space_types
+    # Extract windows
+    windows_data = response.get("windows", [])
+    windows: list[Window] = []
+    for w in windows_data:
+        cell_id = w.get("cell_id")
+        edge = w.get("edge")
+        if cell_id and edge and edge in VALID_EDGES:
+            space_id = cell_to_space.get(cell_id)
+            windows.append(Window(cell_id=cell_id, edge=edge, space_id=space_id))
+
+    return space_shells, grid_shell, doors, space_types, windows
 
 
 def evaluate_single(
@@ -327,7 +343,7 @@ def evaluate_single(
     model_name = response_data.get("model_name")
 
     # Extract topology
-    space_shells, grid_shell, doors, space_types = extract_topology(
+    space_shells, grid_shell, doors, space_types, windows = extract_topology(
         response_data, grid_rows, grid_cols, geometry_engine=geometry_engine
     )
 
@@ -336,6 +352,7 @@ def evaluate_single(
         space_shells=space_shells,
         grid_shell=grid_shell,
         doors=doors,
+        windows=windows,
         floor_plan_id=floor_plan_id,
         model_name=model_name,
         space_types=space_types,
@@ -442,7 +459,7 @@ def evaluate_jsonl(
             cached_grid = Topology.Copy(grid_cache[cache_key], deep=True)
 
         # Extract topology using appropriate builder for geometry engine
-        space_shells, grid_shell, doors, space_types = extract_topology(
+        space_shells, grid_shell, doors, space_types, windows = extract_topology(
             response_data, rows, cols, grid_shell=cached_grid,
             geometry_engine=geometry_engine
         )
@@ -456,6 +473,7 @@ def evaluate_jsonl(
             space_shells=space_shells,
             grid_shell=grid_shell,
             doors=doors,
+            windows=windows,
             floor_plan_id=floor_plan_id,
             model_name=model_name,
             space_types=space_types,
@@ -550,7 +568,7 @@ def evaluate_jsonl_stream(
             cached_grid = Topology.Copy(grid_cache[cache_key], deep=True)
 
         # Extract topology using appropriate builder for geometry engine
-        space_shells, grid_shell, doors, space_types = extract_topology(
+        space_shells, grid_shell, doors, space_types, windows = extract_topology(
             response_data, rows, cols, grid_shell=cached_grid,
             geometry_engine=geometry_engine
         )
@@ -574,6 +592,7 @@ def evaluate_jsonl_stream(
             space_shells=space_shells,
             grid_shell=grid_shell,
             doors=doors,
+            windows=windows,
             space_types=space_types,
         ):
             total_count += 1

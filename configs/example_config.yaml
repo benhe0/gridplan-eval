@@ -1,44 +1,60 @@
 # Example configuration for constraint_eval_v2
 # Declarative YAML format for floor plan constraint evaluation
+#
+# Instance-based configuration: each space instance is defined explicitly
+# with ID format: {type}_{number} (e.g., bedroom_1, bathroom_1)
 
 grid:
   width: 20
   height: 15
 
 spaces:
-  bedroom:
-    count: 2
+  bedroom_1:
     min_area: 10
     max_area: 25
     contiguous: true
     facade_access: required
 
-  bathroom:
-    count: 1
+  bedroom_2:
+    min_area: 10
+    max_area: 25
+    contiguous: true
+    facade_access: required
+
+  bathroom_1:
     min_area: 4
     max_area: 10
     contiguous: true
 
-  kitchen:
-    count: 1
+  kitchen_1:
     min_area: 8
     contiguous: true
 
-  living_room:
-    count: 1
+  living_room_1:
     min_area: 15
     facade_access: required
     shape: rectangular
 
-  circulation:
-    count: 1
+  circulation_1:
     min_area: 10
     min_width: 2
     contiguous: true
 
 connectivity:
-  - bedroom adjacent_to bathroom
-  - bedroom door_to circulation
-  - kitchen door_to living_room
-  - bathroom door_to circulation
-  - bedroom avoid kitchen
+  # Bedroom-bathroom adjacency (each bedroom must be adjacent to bathroom)
+  - bedroom_1 adjacent_to bathroom_1
+  - bedroom_2 adjacent_to bathroom_1
+
+  # Bedroom doors to circulation
+  - bedroom_1 door_to circulation_1
+  - bedroom_2 door_to circulation_1
+
+  # Kitchen-living room connection
+  - kitchen_1 door_to living_room_1
+
+  # Bathroom door to circulation
+  - bathroom_1 door_to circulation_1
+
+  # Bedroom-kitchen avoidance
+  - bedroom_1 avoid kitchen_1
+  - bedroom_2 avoid kitchen_1

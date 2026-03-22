@@ -1,78 +1,78 @@
-# 15x15 Startup Floor Plan - constraint_eval_v2 format
-# Converted from: 15x15_startup_newdoors_v3
-
 grid:
   width: 15
   height: 15
 
 spaces:
-  open_work_area:
-    count: 1
+  open_work_area_1:
     contiguous: true
 
-  meeting:
-    count: 2
+  meeting_1:
     contiguous: true
 
-  phone_booth:
-    count: 3
+  meeting_2:
     contiguous: true
 
-  kitchen:
-    count: 1
+  phone_booth_1:
     contiguous: true
 
-  lounge:
-    count: 1
+  phone_booth_2:
     contiguous: true
 
-  bathroom_women:
-    count: 1
+  phone_booth_3:
     contiguous: true
 
-  bathroom_men:
-    count: 1
+  kitchen_1:
     contiguous: true
 
-  storage:
-    count: 1
+  lounge_1:
     contiguous: true
 
-  reception:
-    count: 1
+  bathroom_women_1:
     contiguous: true
 
-  circulation:
-    count: 1
+  bathroom_men_1:
+    contiguous: true
+
+  storage_1:
+    contiguous: true
+
+  reception_1:
+    contiguous: true
+
+  circulation_1:
     min_width: 2
     facade_access: required
     contiguous: false
 
 connectivity:
   # Reception
-  - reception door_to circulation
+  - reception_1 door_to circulation_1
 
   # Open Work Area
-  - open_work_area door_to circulation
-  - open_work_area adjacent_to meeting
-  - open_work_area avoid bathroom_men
-  - open_work_area avoid bathroom_women
+  - open_work_area_1 door_to circulation_1
+  - open_work_area_1 adjacent_to meeting_1
+  - open_work_area_1 adjacent_to meeting_2
+  - open_work_area_1 avoid bathroom_men_1
+  - open_work_area_1 avoid bathroom_women_1
 
-  # Meeting Room
-  - meeting door_to circulation
+  # Meeting Rooms (each needs door to circulation)
+  - meeting_1 door_to circulation_1
+  - meeting_2 door_to circulation_1
 
-  # Phone Booth
-  - phone_booth door_to circulation
+  # Phone Booths (each needs door to circulation)
+  - phone_booth_1 door_to circulation_1
+  - phone_booth_2 door_to circulation_1
+  - phone_booth_3 door_to circulation_1
 
   # Kitchen & Lounge
-  - kitchen door_to lounge
-  - kitchen door_to circulation
-  - lounge door_to circulation
+  - kitchen_1 door_to lounge_1
+  - kitchen_1 door_to circulation_1
+  - lounge_1 door_to circulation_1
 
   # Bathrooms
-  - bathroom_men adjacent_to bathroom_women
-  - bathroom_men door_to circulation
-  - bathroom_women door_to circulation
+  - bathroom_men_1 adjacent_to bathroom_women_1
+  - bathroom_men_1 door_to circulation_1
+  - bathroom_women_1 door_to circulation_1
 
   # Storage
-  - storage door_to circulation
+  - storage_1 door_to circulation_1

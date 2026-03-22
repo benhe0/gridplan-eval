@@ -5,54 +5,56 @@ from typing import Iterator, Any
 from ..constraints.base import Constraint
 from ..models.result import ConstraintResult
 from ..geometry.interface import GeometryEngine
-from ..config.schema import EvalConfig
+from ..config.schema import EvalConfig, extract_type_from_instance_id
 
 
 class ContiguityConstraint(Constraint):
-    """Validates that space instances are contiguous (not fragmented)."""
+    """Validates that a specific space instance is contiguous (not fragmented)."""
 
     constraint_type = "contiguity"
 
-    def __init__(self, space_type: str):
+    def __init__(self, instance_id: str):
         """Initialize contiguity constraint.
 
         Args:
-            space_type: Type of space to check (e.g., "bedroom")
+            instance_id: Instance ID to check (e.g., "bedroom_1")
         """
-        self.space_type = space_type
+        self.instance_id = instance_id
 
     def evaluate(
         self,
         geometry: GeometryEngine,
         space_shells: dict[str, Any],
         grid_shell: Any,
-        doors: list[tuple[str, str]],
+        doors: list[dict[str, str | None]],
+        windows: list,
         config: EvalConfig,
         space_types: dict[str, str] | None = None,
     ) -> Iterator[ConstraintResult]:
-        """Evaluate contiguity for each space instance."""
-        matching = geometry.find_spaces_by_type(space_shells, self.space_type, space_types)
+        """Evaluate contiguity for the specific instance."""
+        space_type = extract_type_from_instance_id(self.instance_id)
+        shell = space_shells.get(self.instance_id)
 
-        if not matching:
+        if shell is None:
             yield self._make_skipped_result(
-                constraint_id=f"contiguity_{self.space_type}",
-                space_type=self.space_type,
+                constraint_id=f"contiguity_{self.instance_id}",
+                space_type=space_type,
+                reason=f"Instance '{self.instance_id}' not found",
             )
             return
 
-        for idx, (space_id, shell) in enumerate(sorted(matching.items())):
-            is_contiguous = geometry.check_contiguous(shell)
+        is_contiguous = geometry.check_contiguous(shell)
 
-            if is_contiguous:
-                reason = "Space is contiguous"
-            else:
-                reason = "Space is fragmented into multiple regions"
+        if is_contiguous:
+            reason = "Space is contiguous"
+        else:
+            reason = "Space is fragmented into multiple regions"
 
-            yield self._make_result(
-                constraint_id=f"contiguity_{self.space_type}_{idx}",
-                passed=is_contiguous,
-                space_id=space_id,
-                space_type=self.space_type,
-                is_contiguous=is_contiguous,
-                reason=reason,
-            )
+        yield self._make_result(
+            constraint_id=f"contiguity_{self.instance_id}",
+            passed=is_contiguous,
+            instance_id=self.instance_id,
+            space_type=space_type,
+            is_contiguous=is_contiguous,
+            reason=reason,
+        )

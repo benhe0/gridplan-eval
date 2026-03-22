@@ -20,6 +20,7 @@ class CellOverlapConstraint(Constraint):
         space_shells: dict[str, Any],
         grid_shell: Any,
         doors: list[tuple[str, str]],
+        windows: list,
         config: EvalConfig,
         space_types: dict[str, str] | None = None,
     ) -> Iterator[ConstraintResult]:
